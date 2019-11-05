@@ -23,40 +23,37 @@ import java.util.HashMap;
  */
 public class LongestSubstringWithoutRepeatingCharacters {
 
-  public static int lengthOfLongestSubstring(String s) {
+    public static int lengthOfLongestSubstring(String s) {
 
-    if (s == null) {
-      return 0;
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+
+        int start = 0;
+        int maxLen = 0;
+        int position = 0;
+        int[] indices = new int[2 << 16 - 1];
+
+        int length = s.length();
+        while (position < length) {
+            char c = s.charAt(position);
+            if (indices[c] > 0) {
+                start = Math.max(indices[c], start);
+            }
+            maxLen = Math.max(maxLen, position - start + 1);
+            indices[c] = position + 1;
+            position++;
+        }
+
+        return maxLen;
     }
-    if (s.length() <= 1) {
-      return s.length();
+
+    public static void main(String[] args) {
+        System.out.println(lengthOfLongestSubstring("tmmzuxt"));
+        System.out.println(lengthOfLongestSubstring("abcdabcebb"));
+        System.out.println(lengthOfLongestSubstring("a"));
+        System.out.println(lengthOfLongestSubstring("ab"));
+        System.out.println(lengthOfLongestSubstring("abcdefghijklamnopqrsta"));
     }
-
-    int maxLen = 0;
-    int start = 0;
-    int position = 0;
-    HashMap<Character, Integer> indices = new HashMap<>();
-
-    int length = s.length();
-    while (position < length) {
-
-      if (indices.containsKey(s.charAt(position))) {
-        start = Math.max(indices.get(s.charAt(position)) + 1, start);
-      }
-      maxLen = Math.max(maxLen, position - start + 1);
-      indices.put(s.charAt(position), position);
-      position++;
-    }
-
-    return maxLen;
-  }
-
-  public static void main(String[] args) {
-    System.out.println(lengthOfLongestSubstring("tmmzuxt"));
-    System.out.println(lengthOfLongestSubstring("abcdabcebb"));
-    System.out.println(lengthOfLongestSubstring("a"));
-    System.out.println(lengthOfLongestSubstring("ab"));
-    System.out.println(lengthOfLongestSubstring("abcdefghijklamnopqrsta"));
-  }
 }
 
