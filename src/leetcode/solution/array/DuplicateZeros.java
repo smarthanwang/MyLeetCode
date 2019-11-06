@@ -1,5 +1,6 @@
 package leetcode.solution.array;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import leetcode.util.ArrayUtil;
 
 /**
@@ -41,12 +42,11 @@ public class DuplicateZeros {
                 continue;
             }
             if (++j >= temp.length) {
-                return;
+                break;
             } else {
                 temp[j] = 0;
             }
         }
-
         for (int i = 0; i < arr.length; i++) {
             arr[i] = temp[i];
         }
@@ -54,6 +54,7 @@ public class DuplicateZeros {
 
     public static void main(String[] args) {
         int[] a = {8,4,5,0,0,0,0,7};
+        ArrayUtil.printArray(a);
         new DuplicateZeros().duplicateZeros(a);
         ArrayUtil.printArray(a);
     }
