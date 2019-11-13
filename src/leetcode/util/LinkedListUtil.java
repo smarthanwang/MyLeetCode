@@ -37,33 +37,30 @@ public class LinkedListUtil {
         if (head == null || head.next == null) {
             return head;
         }
-        return reverseListRecursion(null, head);
+        return reverseListRecursion(head);
         //return reverseListLoop(head);
     }
 
     private static ListNode reverseListLoop(ListNode head) {
         ListNode pre = null;
         ListNode ptr = head;
-        ListNode post = ptr.next;
-        while (ptr.next != null) {
+        while (ptr!= null) {
+            ListNode next = ptr.next;
             ptr.next = pre;
             pre = ptr;
-            ptr = post;
-            post = ptr.next;
+            ptr = next;
         }
-        ptr.next = pre;
-        return ptr;
+        return pre;
     }
 
-    private static ListNode reverseListRecursion(ListNode pre, ListNode node) {
-        if (node.next == null) {
-            node.next = pre;
-            return node;
-        } else {
-            ListNode head = reverseListRecursion(node, node.next);
-            node.next = pre;
+    private static ListNode reverseListRecursion(ListNode head) {
+        if (head == null || head.next == null){
             return head;
         }
+        ListNode p = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return p;
 
     }
 
@@ -103,7 +100,7 @@ public class LinkedListUtil {
 
         printList(listNode);
         printList(reverseList(listNode));
-        printList(reverseListRecursion(null, listNode));
+
     }
 
 }
