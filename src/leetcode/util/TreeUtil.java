@@ -2,6 +2,7 @@ package leetcode.util;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 import leetcode.common.TreeNode;
 
 public class TreeUtil {
@@ -32,8 +33,8 @@ public class TreeUtil {
     public static void preorderTraversal(TreeNode root) {
         if (root != null) {
             System.out.print(root.val + " ");
-            inorderTraversal(root.left);
-            inorderTraversal(root.right);
+            preorderTraversal(root.left);
+            preorderTraversal(root.right);
         }
     }
 
@@ -47,8 +48,8 @@ public class TreeUtil {
 
     public static void postorderTraversal(TreeNode root) {
         if (root != null) {
-            inorderTraversal(root.left);
-            inorderTraversal(root.right);
+            postorderTraversal(root.left);
+            postorderTraversal(root.right);
             System.out.print(root.val + " ");
         }
     }
