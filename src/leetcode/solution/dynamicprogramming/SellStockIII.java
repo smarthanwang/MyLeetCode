@@ -15,6 +15,7 @@ public class SellStockIII {
         return maxProfit;
     }
 
+    //TODO optimize speed
     private int maxProfit(int[] prices, int s, int e) {
         if (s >= e) {
             return 0;
