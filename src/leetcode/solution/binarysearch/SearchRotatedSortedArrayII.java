@@ -26,50 +26,60 @@ package leetcode.solution.binarysearch;
  */
 public class SearchRotatedSortedArrayII {
 
-    //TODO finish it
     public boolean search(int[] nums, int target) {
         if (nums == null || nums.length == 0) {
             return false;
         }
         int left = 0, right = nums.length - 1;
         while (left <= right) {
-
-            int mid = left + (right - left) / 2;
+            int mid = (right + left) / 2;
             if (nums[mid] == target) {
                 return true;
-            } else if (nums[mid] > target) {
-
-            } else {
-
+            }
+            while (left < mid && nums[left] == nums[mid]) {
+                left++;
+            }
+            //右侧有序
+            if (nums[left] > nums[mid]) {
+                if (nums[mid] < target && nums[right] >= target) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            } else {  //左侧有序
+                if (nums[mid] > target && nums[left] <= target) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
             }
         }
         return false;
     }
 
-    private int searchRotateIndex(int[] nums){
-
+    // 找到旋转点，二分查找两边
+    private int searchRotateIndex(int[] nums) {
         int left = 0, right = nums.length - 1;
-        while (left <= right){
-            int mid = left + (right - left) / 2;
-
-            while(left < mid && nums[left] == nums[mid]){
-                left ++;
+        while (left < right - 1) {
+            int mid = (right + left) / 2;
+            while (left < mid && nums[left] == nums[mid]) {
+                left++;
             }
-            if (nums[mid] >= nums[left]){
-                left = mid + 1;
-            }else {
+            if (nums[mid] < nums[left]) {
                 right = mid - 1;
+            } else {
+                left = mid;
             }
         }
-        return -1;
+        return nums[left] < nums[right] ? right : left;
     }
 
     public static void main(String[] args) {
         SearchRotatedSortedArrayII searcher = new SearchRotatedSortedArrayII();
         int[] nums = new int[]{2, 3, 5, 0, 0, 1, 2};
         System.out.println(searcher.search(nums, 5));
-        nums = new int[]{3, 1, 1};
-        System.out.println(searcher.search(nums, 3));
+        nums = new int[]{1, 1, 1, 2, 2, 3, 1, 1};
+        System.out.println(searcher.search(nums, 4));
         nums = new int[]{3, 1, 2};
         System.out.println(searcher.search(nums, 2));
     }

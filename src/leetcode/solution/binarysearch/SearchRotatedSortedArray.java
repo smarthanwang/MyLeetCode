@@ -14,30 +14,16 @@ public class SearchRotatedSortedArray {
             }
             // 根据拐点判断区间
             if (nums[mid] > target) {
-                if (nums[mid] >= nums[left]) {
-                    if (nums[left] == target) {
-                        return left;
-                    }
-                    if (nums[left] > target) {
-                        left = mid + 1;
-                    } else {
-                        right = mid - 1;
-                    }
+                if (nums[mid] >= nums[left] && nums[left] > target) {
+                    left = mid + 1;
                 } else {
                     right = mid - 1;
                 }
             } else {
-                if (nums[mid] >= nums[right]) {
-                    left = mid + 1;
+                if (nums[mid] <= nums[right] && nums[right] < target) {
+                    right = mid - 1;
                 } else {
-                    if (nums[right] == target) {
-                        return right;
-                    }
-                    if (nums[right] > target) {
-                        left = mid + 1;
-                    } else {
-                        right = mid - 1;
-                    }
+                    left = mid + 1;
                 }
             }
         }
@@ -46,11 +32,11 @@ public class SearchRotatedSortedArray {
 
     public static void main(String[] args) {
         SearchRotatedSortedArray searcher = new SearchRotatedSortedArray();
-        int[] nums = new  int[]{4,5,6,7,0,1,2};
-        System.out.println(searcher.search(nums , 5));
-        nums = new  int[]{3,1};
-        System.out.println(searcher.search(nums , 1));
-        nums = new  int[]{3,1,2};
-        System.out.println(searcher.search(nums , 2));
+        int[] nums = new int[]{4, 5, 6, 7, 0, 1, 2};
+        System.out.println(searcher.search(nums, 5));
+        nums = new int[]{3, 1};
+        System.out.println(searcher.search(nums, 1));
+        nums = new int[]{3, 1, 2};
+        System.out.println(searcher.search(nums, 2));
     }
 }

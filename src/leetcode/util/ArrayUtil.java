@@ -41,7 +41,7 @@ public class ArrayUtil {
         int[] array = new int[length];
         Random random = new Random(47);
         for (int i=0 ; i < length; i++){
-            array[i] = random.nextInt();
+            array[i] = random.nextInt(1000);
         }
         return array;
     }
